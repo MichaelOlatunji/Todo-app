@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo List App</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Todo List</h1>
+        <form>
+            <input type="text" placeholder="Type what you want to do here" autofocus required/>
+            <button id="button" type="submit">Add</button>
+        </form>
+        <ul>
+            <% for (var i=0; i < todos.length; i++){ %>
+            <li><%= todos[i].item %><input class="del" type="button" value="Delete" /></li>
+            <% } %>
+        </ul>
+            <!-- <% for(var i in todos) {%>
+        <p><%= todos[i].item %></p>
+        <% } %> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+
+            $('form').on('submit', function(){
+                
+                let item = $('form input');
+                let todo = {item: item.val()};
+
+                $.ajax({
+                    type: 'POST', url: '/todo', data: todo, 
+                    success: function(data){
+                        location.reload()
+                    }
+                })
+            });
+
+            $('.del').on('click', function(){
+                $(this).parent().on('click', function(){
+                let item = $(this).text().replace(/ /g,'-')
+                    console.log(item);
+                $.ajax({
+                    type: 'DELETE', url: '/todo/'+ item,
+                    success: function(data){
+                        location.reload()
+                    }
+                })
+            })
+            })   
+        })
+
+        </script>
+    </body>
+</html>
