@@ -1,9 +1,10 @@
 let express = require('express');
 let todo = require('./todo');
+const port = process.env.PORT || 3000;
 
 app = express();
 app.set('view engine', 'ejs');
 todo(app);
-app.listen(8080, () => {
-    console.log('Todo listening on port 8080');
+app.listen(port, () => {
+    console.log('Todo listening on port'+ port);
 });
