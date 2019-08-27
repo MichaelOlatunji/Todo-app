@@ -18,6 +18,9 @@ module.exports = (app) => {
     app.get('/signup', (req, res) => {
         res.render('signup');
     })
+    app.get('/login', (req, res) => {
+        res.render('login');
+    })
     app.get('/todo', (req, res) =>{
         Todo.find({}, (err, data) =>{ 
             if(err) throw err;
@@ -30,6 +33,9 @@ module.exports = (app) => {
             res.json(data);
         })
     });
+    app.post('/register', urlEncodedParser, (req, res) =>{
+        console.log(req.body);
+    })
     app.delete('/todo/:item', (req, res) =>{
         Todo.find({item: req.params.item.replace(/\-/g, ' ')}).remove((err, data) => {
             if(err) throw err;

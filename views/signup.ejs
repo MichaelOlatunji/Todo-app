@@ -17,19 +17,50 @@
     <body>
         <h2>Sign Up</h2>
         <form>
-            <label>First Name:</label><br />
-            <input type="text" placeholder="Michael" required/><br /><br />
-            <label>Last Name:</label><br />
-            <input type="text" placeholder="Olatunji" required/><br /><br />
-            <label>Email:</label><br />
-            <input type="email" placeholder="abc@example.com" required/><br /><br />
-            <label>Username:</label><br />
-            <input type="text" placeholder="michaelo" required/><br /><br />
-            <label>Password:</label><br />
-            <input type="password" placeholder="Password" required/><br /><br />
-            <label>Confirm Password:</label><br />
-            <input type="password" placeholder="Confirm Password" required/><br /><br />
-            <button id="signupBtn">Register</button>
+            <label for="fname">First Name:</label><br />
+            <input id="fname" type="text" placeholder="Michael" required/><br /><br />
+            <label for="lname">Last Name:</label><br />
+            <input id="lname" type="text" placeholder="Olatunji" required/><br /><br />
+            <label for="mail">Email:</label><br />
+            <input id="mail" type="email" placeholder="abc@example.com" required/><br /><br />
+            <label for="uname">Username:</label><br />
+            <input id="uname" type="text" placeholder="michaelo" required/><br /><br />
+            <label for="pwd">Password:</label><br />
+            <input id="pwd" type="password" placeholder="Password" required/><br /><br />
+            <label for="cfpwd">Confirm Password:</label><br />
+            <input id="cfpwd" type="password" placeholder="Confirm Password" required/><br /><br />
+            <label for="male">Male</label><input id="male" type="radio" value="male" name="gender" />
+            <label for="female">Female</label><input id="female" type="radio" value="female" name="gender"/><br /><br />
+            <input id="signupBtn" type="submit" value="Register"/>
         </form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('form').on('submit', function(e){
+                    let fname = $('#fname').val();
+                    let lname = $('#lname').val();
+                    let mail = $('#mail').val();
+                    let uname = $('#uname').val();
+                    let pwd = $('#pwd').val();
+                    let gender = $("input[name='gender']:checked").val();
+                    data = {
+                        fname: fname,
+                        lname:lname,
+                        mail: mail,
+                        uname: uname,
+                        pwd: pwd,
+                        gender: gender
+                    }
+
+                    $.ajax({
+                        type:'POST', url:'/register', data: data,
+                        success: function(data){
+                            console.log(data);
+                        }
+                    })
+                })
+                
+            });
+        </script>
     </body>
 </html>
