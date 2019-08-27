@@ -1,7 +1,9 @@
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://michaelo:michaelayo@cluster0-u8mop.mongodb.net/test?retryWrites=true&w=majority');
+// mongoose.connect('mongodb+srv://michaelo:michaelayo@cluster0-u8mop.mongodb.net/test?retryWrites=true&w=majority', 
+// {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true });
 let todoSchema = new mongoose.Schema({
     item: String
 });
@@ -16,11 +18,14 @@ let urlEncodedParser = bodyParser.urlencoded({extended: false});
 
 module.exports = (app) => {
     app.get('/', (req, res) => { 
-        Todo.find({}, (err, data) =>{ 
-            if(err) throw err;
-        res.render('todo', {todos: data});
-        });
+        res.render('home');
     });
+    app.get('/home', (req, res) => {
+        res.render('home');
+    });
+    app.get('/signup', (req, res) => {
+        res.render('signup');
+    })
     app.get('/todo', (req, res) =>{
         Todo.find({}, (err, data) =>{ 
             if(err) throw err;
