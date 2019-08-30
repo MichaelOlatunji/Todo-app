@@ -33,6 +33,7 @@
             <label for="female">Female</label><input id="female" type="radio" value="female" name="gender"/><br /><br />
             <input id="signupBtn" type="submit" value="Register"/>
         </form>
+        <div id="displayData"></div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
@@ -56,6 +57,7 @@
                         type:'POST', url:'/register', data: data,
                         success: function(data){
                             console.log(data);
+                            $('#displayData').html(data);
                         }
                     })
                 })

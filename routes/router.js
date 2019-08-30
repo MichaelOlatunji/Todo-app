@@ -1,5 +1,7 @@
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
+let bcrypt = require('bcrypt');
+let User = require('../modules/signup');
 
 let todoSchema = new mongoose.Schema({
     item: String
@@ -33,9 +35,25 @@ module.exports = (app) => {
             res.json(data);
         })
     });
-    app.post('/register', urlEncodedParser, (req, res) =>{
-        console.log(req.body);
-    })
+    app.post('/register', urlEncodedParser, async (req, res) => {
+        
+        const genSalt = await bcrypt.genSalt(12);
+        bcrypt.hash(req.body.pwd, genSalt).then((hash) => {
+            User.create({
+                first_name: req.body.fname,
+                last_name: req.body.lname,
+                email: req.body.mail,
+                username: req.body.uname,
+                password: hash,
+                gender: req.body.gender
+            }).then((user) => {
+                console.log(user);
+                res.render('success');
+            }).catch((err) => {
+                console.log(err);
+            })
+        }).catch((err) => {console.log(err)}) 
+    });
     app.delete('/todo/:item', (req, res) =>{
         Todo.find({item: req.params.item.replace(/\-/g, ' ')}).remove((err, data) => {
             if(err) throw err;

@@ -6,6 +6,7 @@ const port = process.env.PORT || 3000;
 
 app = express();
 app.set('view engine', 'ejs');
+mongoose.set('useCreateIndex', true);
 // mongoose.connect('mongodb+srv://michaelo:michaelayo@cluster0-u8mop.mongodb.net/test?retryWrites=true&w=majority', 
 // {useNewUrlParser: true});
 mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true });
