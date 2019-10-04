@@ -2,6 +2,7 @@ let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let bcrypt = require('bcrypt');
 let User = require('../modules/signup');
+let fs = require('fs');
 
 let todoSchema = new mongoose.Schema({
     item: String
@@ -29,6 +30,13 @@ module.exports = (app) => {
         res.render('todo', {todos: data});
         });
     });
+
+    app.get('/conference', (req, res) => {
+        // fs.readFile(__dirname + '/public/index.html', 'utf8', (err, text) => {
+        //     res.send(text);
+        // });
+        res.render('index')
+    })
     app.post('/todo',urlEncodedParser, (req, res) =>{
         let newTodo = Todo(req.body).save((err, data) =>{
             if (err) throw err;
@@ -37,8 +45,8 @@ module.exports = (app) => {
     });
     app.post('/register', urlEncodedParser, async (req, res) => {
         
-        const genSalt = await bcrypt.genSalt(12);
-        bcrypt.hash(req.body.pwd, genSalt).then((hash) => {
+        const genSalt = await bcrypt.genSalt(10);
+        bcrypt.hash(req.body.pwd, genSalt, (err, hash) => {
             User.create({
                 first_name: req.body.fname,
                 last_name: req.body.lname,
@@ -48,12 +56,20 @@ module.exports = (app) => {
                 gender: req.body.gender
             }).then((user) => {
                 console.log(user);
-                res.render('success');
+                if(user){
+                    console.log(user);
+                    // req.method = 'get';                    
+                    res.send(user);
+                }
             }).catch((err) => {
                 console.log(err);
             })
-        }).catch((err) => {console.log(err)}) 
+        })
+        // .then((hash) => {
+            
+        // }).catch((err) => {console.log(err)}) 
     });
+
     app.delete('/todo/:item', (req, res) =>{
         Todo.find({item: req.params.item.replace(/\-/g, ' ')}).remove((err, data) => {
             if(err) throw err;
