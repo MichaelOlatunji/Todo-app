@@ -1,6 +1,6 @@
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
-let bcrypt = require('bcrypt');
+// let bcrypt = require('bcrypt');
 let User = require('../modules/signup');
 
 let todoSchema = new mongoose.Schema({
@@ -41,8 +41,8 @@ module.exports = (app) => {
     });
     app.post('/register', urlEncodedParser, async (req, res) => {
         
-        const genSalt = await bcrypt.genSalt(10);
-        bcrypt.hash(req.body.pwd, genSalt, (err, hash) => {
+        // const genSalt = await bcrypt.genSalt(10);
+        // bcrypt.hash(req.body.pwd, genSalt, (err, hash) => {
             User.create({
                 first_name: req.body.fname,
                 last_name: req.body.lname,
@@ -60,7 +60,7 @@ module.exports = (app) => {
             }).catch((err) => {
                 console.log(err);
             })
-        })
+        // })
         // .then((hash) => {
             
         // }).catch((err) => {console.log(err)}) 
