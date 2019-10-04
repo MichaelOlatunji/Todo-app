@@ -2,7 +2,6 @@ let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let bcrypt = require('bcrypt');
 let User = require('../modules/signup');
-let fs = require('fs');
 
 let todoSchema = new mongoose.Schema({
     item: String
@@ -32,9 +31,6 @@ module.exports = (app) => {
     });
 
     app.get('/conference', (req, res) => {
-        // fs.readFile(__dirname + '/public/index.html', 'utf8', (err, text) => {
-        //     res.send(text);
-        // });
         res.render('index')
     })
     app.post('/todo',urlEncodedParser, (req, res) =>{
