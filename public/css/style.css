@@ -9806,7 +9806,7 @@ textarea.form-control {
     
     .fantastic-team-2 div p{
       font-weight: lighter;
-      font-size: 0.9em;
+      font-size: 0.8em;
     }
     
     @media only screen and (min-width: 1001px) and (max-width: 1200px){
@@ -9999,6 +9999,9 @@ textarea.form-control {
   color: #0D19A3;
 }
 .naco-notes{
+  font-size: 8px;
   text-align: justify;
+  text-justify: distribute;
+  text-align-last: left;
   line-height: 18px;
 }
