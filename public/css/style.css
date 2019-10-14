@@ -9977,9 +9977,17 @@ textarea.form-control {
   color: #0D19A3;
 }
 .naco-add{
-  width: 80px;
+  width: 60px;
   border-bottom: 3px solid #0D19A3;
   margin: auto;
+  margin-bottom: 5px;
+}
+.naco-add-light{
+  width: 60px;
+  border-bottom: 3px solid #fff;
+  margin: auto;
+  margin-bottom: 5px;
+
 }
 .naco-text{
   color: rgba(0, 0, 0, 0.7);
